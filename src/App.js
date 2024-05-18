@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import smalllove from "./smalllove.jpg";
 import largelove from "./largelove.jpg";
+import Model from "./Model";
 
 function App() {
   const [score, setScore] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+
   const [quotes, setQuotes] = useState("");
   const radius = 16;
   const circumference = 2 * Math.PI * radius;
@@ -19,11 +22,13 @@ function App() {
   const calculateLove = (e) => {
     e.preventDefault();
     const { name1, name2 } = names;
-
+    setIsOpen(!isOpen);
     if (
-      (name1.toLowerCase() === "sivabalan" &&
-        name2.toLowerCase() === "jeeva") ||
-      (name1.toLowerCase() === "jeeva" && name2.toLowerCase() === "siva")
+      name1.toLowerCase() === "sneka" ||
+      name1.toLowerCase() === "snega" ||
+      (name1.toLowerCase() === "sneaka" && name2.toLowerCase() === "jeeva") ||
+      name2.toLowerCase() === "sivabalan" ||
+      name2.toLowerCase() === "siva"
     ) {
       setScore(88.6);
       setQuotes(
@@ -70,6 +75,10 @@ function App() {
     setScore(null);
     setNames({ name1: "", name2: "" });
     setQuotes("");
+    setIsOpen(!isOpen);
+  };
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
   };
   return (
     <>
@@ -131,18 +140,14 @@ function App() {
                 backgroundImage: `url(${smalllove})`,
               }}
             >
-              <div className="absolute bg-black opacity-60 inset-0 z-0">
-                
-              </div>
-              
+              <div className="absolute bg-black opacity-60 inset-0 z-0"></div>
             </div>
-            
+
             <div className="w-full py-6 z-20">
               <div>
-                
                 {score !== null && (
                   <div
-                    className="relative size-40 my-6 mx-auto"
+                    className=" hidden sm:block relative size-40 my-6 mx-auto"
                     value={score}
                     max="100"
                   >
@@ -184,7 +189,6 @@ function App() {
                     </div>
                   </div>
                 )}
-                
               </div>
 
               <form
@@ -194,7 +198,7 @@ function App() {
                 <div className="pb-2 pt-4">
                   <div className="relative">
                     <input
-                    required
+                      required
                       type="text"
                       name="name1"
                       value={names.name1}
@@ -208,7 +212,7 @@ function App() {
                 <div className="pb-2 pt-4">
                   <div className="relative">
                     <input
-                    required
+                      required
                       type="text"
                       name="name2"
                       value={names.name2}
@@ -222,9 +226,11 @@ function App() {
 
                 <div className="px-4 pb-2 pt-4">
                   {!score && (
-                    <button className="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none">
-                      Calculate
-                    </button>
+                    <div>
+                      <button className=" uppercase  w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none">
+                        Calculate
+                      </button>
+                    </div>
                   )}
                 </div>
                 {score && (
@@ -259,7 +265,7 @@ function App() {
                       <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
                     </svg>
                   </a>
-                  <a href="#">
+                  <a href="https://www.instagram.com/_sivabalan_/" target="blank">
                     <svg
                       fill="#fff"
                       xmlns="http://www.w3.org/2000/svg"
@@ -274,6 +280,18 @@ function App() {
               </form>
             </div>
           </div>
+
+          {/* <!-- Modal toggle --> */}
+          <Model
+            isOpen={isOpen}
+            toggleModal={toggleModal}
+            score={score}
+            radius={radius}
+            strokeDasharray={strokeDasharray}
+            strokeDashoffset={strokeDashoffset}
+            quotes={quotes}
+            reset={reset}
+          />
         </section>
       </body>
     </>
