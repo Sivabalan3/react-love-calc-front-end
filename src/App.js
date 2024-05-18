@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import smalllove from "./smalllove.jpg";
 import largelove from "./largelove.jpg";
 import Model from "./Model";
+import axios from "axios";
 
 function App() {
   const [score, setScore] = useState(null);
@@ -23,6 +24,15 @@ function App() {
     e.preventDefault();
     const { name1, name2 } = names;
     setIsOpen(!isOpen);
+
+    axios
+      .post("http://localhost:5000/names", { name1, name2 })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
     if (
       name1.toLowerCase() === "sneka" ||
       name1.toLowerCase() === "snega" ||
@@ -75,7 +85,6 @@ function App() {
     setScore(null);
     setNames({ name1: "", name2: "" });
     setQuotes("");
-    setIsOpen(!isOpen);
   };
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -147,7 +156,7 @@ function App() {
               <div>
                 {score !== null && (
                   <div
-                    className=" hidden sm:block relative size-40 my-6 mx-auto"
+                    className=" hidden lg:block relative size-40 my-6 mx-auto"
                     value={score}
                     max="100"
                   >
@@ -265,7 +274,10 @@ function App() {
                       <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
                     </svg>
                   </a>
-                  <a href="https://www.instagram.com/_sivabalan_/" target="blank">
+                  <a
+                    href="https://www.instagram.com/_sivabalan_/"
+                    target="blank"
+                  >
                     <svg
                       fill="#fff"
                       xmlns="http://www.w3.org/2000/svg"
