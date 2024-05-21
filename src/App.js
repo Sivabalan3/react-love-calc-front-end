@@ -85,6 +85,7 @@ function App() {
     setScore(null);
     setNames({ name1: "", name2: "" });
     setQuotes("");
+    setIsOpen(!isOpen);
   };
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -225,7 +226,7 @@ function App() {
                       type="text"
                       name="name2"
                       value={names.name2}
-                      placeholder="Partner's Name"
+                      placeholder="Partner Name"
                       onChange={handleChange}
                       id="email-address-icon"
                       className="text-indigo-500 text-[30px] h-[60px] bg-gray-50 border border-gray-300  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-blue-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
